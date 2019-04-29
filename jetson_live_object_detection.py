@@ -7,8 +7,8 @@ import sys
 import gi
 gi.require_version('Gst', '1.0')
 from gi.repository import Gst
-from mipi_camera import MipiCamera
-from object_detector import ObjectDetection
+from src.mipi_camera import MipiCamera
+from src.object_detector import ObjectDetection
 
 
 """ Jetson Live Object Detector """
