@@ -15,6 +15,8 @@ In the repository, you'll find a few key things:
 
 Getting the right versions of Tensorflow, protobufs, etc and having everyone play well on the Jetson Nano platform was a big hassle. Hopefully these will help you.
 
+This can be accomplished via `./install.sh` run in the root of this repository, where all the models are going to be installed and linked.
+
 ### Download of pretrained models for real-time detection 
 
 Scripts to automatically download pretrained Tensorflow inference graphs and checkpoints, then optimize with TensorRT (which I found as a critical must-have to even *run* on the Nano).
