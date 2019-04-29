@@ -1,8 +1,6 @@
 import numpy as np
 
-# TODO tune values
-# TODO add KF to project
-# TODO add constant rate (10hz)
+# TODO tune values and validate
 
 class ConstantVelocityMotionModel():
     def __init__(self, dt):
