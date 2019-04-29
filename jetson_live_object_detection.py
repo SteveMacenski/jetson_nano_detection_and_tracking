@@ -17,7 +17,7 @@ class JetsonLiveObjectDetection():
         self.debug = debug
         self.camera = MipiCamera(300, 300)
         self.model = model
-        self.detector = ObjectDetection('../data/' + self.model)
+        self.detector = ObjectDetection('./data/' + self.model)
 
     def _visualizeDetections(self, img, scores, boxes, classes, num_detections):
         cols = img.shape[1]
