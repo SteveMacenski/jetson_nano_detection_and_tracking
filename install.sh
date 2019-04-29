@@ -9,6 +9,9 @@ echo "Install Tensorflow and dependencies"
 echo "Install TF models and detection API"
 ./install_scripts/install_tf_models.sh
 
+sudo apt install curl
+curl https://bootstrap.pypa.io/get-pip.py | sudo python3
+
 echo "done!"
 
 echo "You may now install pretrained models via:"
