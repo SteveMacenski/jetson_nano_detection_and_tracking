@@ -10,7 +10,7 @@ from tf_trt_models.tf_trt_models.detection import download_detection_model, buil
 MODEL = 'ssd_mobilenet_v1_coco' if len(sys.argv) < 2 else sys.argv[1]
 
 print ("Downloading model " + MODEL + "..." )
-config_path, checkpoint_path = download_detection_model(MODEL, 'data')
+config_path, checkpoint_path = download_detection_model(MODEL, '../data')
 
 print ("Building detection graph from model " + MODEL + "...")
 frozen_graph, input_names, output_names = build_detection_graph(
@@ -42,7 +42,7 @@ trt_graph = trt.create_inference_graph(
 
 print ("Saving trt optimized graph...")
 
-with open('./data/' + MODEL + '_trt_graph.pb', 'wb') as f:
+with open('../data/' + MODEL + '_trt_graph.pb', 'wb') as f:
     f.write(trt_graph.SerializeToString())
 
 print ("Done! Have a great day :-)")
