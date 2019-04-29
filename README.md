@@ -17,7 +17,7 @@ Getting the right versions of Tensorflow, protobufs, etc and having everyone pla
 
 Scripts to automatically download pretrained Tensorflow inference graphs and checkpoints, then optimize with TensorRT (which I found as a critical must-have to even *run* on the Nano).
 
-Also there's nothing here that prohibits you from using your own Tensorflow and then using the same scripts to optimize it with TensorRT and then deploy as described below. I have retrained a model from the zoo and followed these same instructions with equal success.
+Also there's nothing here that prohibits you from using your own Tensorflow model and then using the same scripts to optimize it with TensorRT and then deploy as described below. I have retrained a model from the zoo and followed these same instructions with equal success (I really needed that additional glass of beer class for... reasons).
 
 ### Execution of live detection with an attached MIPI-based camera
 
