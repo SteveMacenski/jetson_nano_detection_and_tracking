@@ -28,3 +28,24 @@ This will run the argus streamer for a MIPI camera compatible with the Jetson Na
 ### Filter-based tracking of detections
 
 This uses a constant velocity Kalmon Filter to track detections in the image frame and report stabilized detections based on the centroid. This is to handle 2 things. The first is to deal with irregular detections so that a few missing frames doesn't make an upstream application think a person disppeared out of thin air for 57 ms. Secondarily, it acts as smoother so if individual frames detect irraneous things (like an airplane rather than my ear) single frame detections aren't introduced into the system. For robotics applications it would be pretty bad if we saw an airplane in my living room. 
+
+## Walk-through
+
+`jetson_live_object_detection.py` is the main live object detection program. It will take no flags and run in a debug mode with printed statements about detections found and a visualization. The visualization will include the bounding boxes around an object where the line thickness is proportional to confidence. Example use to run an ssd mobilenet v1 trt optimized model in debug mode:
+
+```
+python3 jetson_live_object_detection.py ssd_mobilenet_v1_trt_graph.pb True
+```
+
+`tf_download_and_trt_model.py` will be your pretrained model savior. You're able to download pretrained models *unoptimized* from zoo and have them placed in the `./data` directory along side the ms coco labels. After download, it will run the TensorRT optimization over them and leave you with a file named `[model]_trt_graph.pb` for use. Example use:
+
+```
+tf_download_and_trt_model.py [model]
+```
+
+Model options include:
+- ssd_mobilenet_v1_coco
+- ssd_mobilenet_v2_coco
+- ssd_inception_v2_coco
+
+There are other models available, but considering the use-case of this project is real-time detection in robotics, these are your main valid options. I make no warranty of other model uses.
