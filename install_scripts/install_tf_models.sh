@@ -11,9 +11,10 @@ sudo ./install.sh python3
 
 echo "Testing model install..."
 cd third_party/models/research
+export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
 python3 object_detection/builders/model_builder_test.py
 
-echo 'export PYTHONPATH=$PYTHONPATH:'`pwd`':'`pwd`'/slim' >> $HOME/.bashrc
+echo 'export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim' >> $HOME/.bashrc
 
 echo "Done!"
 
