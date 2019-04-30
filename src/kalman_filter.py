@@ -11,7 +11,7 @@ class ConstantVelocityMotionModel():
         return
 
 
-class KalmonFilter(ConstantVelocityMotionModel):
+class KalmanFilter(ConstantVelocityMotionModel):
     def __init__(self, fps):
         dt = 1.0/fps
         super(KalmonFilter, self).__init__(dt)
