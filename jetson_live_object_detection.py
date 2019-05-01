@@ -10,13 +10,13 @@ from gi.repository import Gst
 from src.mipi_camera import MipiCamera
 from src.object_detector import ObjectDetection
 
-
 """ Jetson Live Object Detector """
 class JetsonLiveObjectDetection():
-    def __init__(self, model,  debug=False):
+    def __init__(self, model, debug=False, fps = 10.):
         self.debug = debug
         self.camera = MipiCamera(300, 300)
         self.model = model
+        self.rate = float(1. / fps)
         self.detector = ObjectDetection('./data/' + self.model)
 
     def _visualizeDetections(self, img, scores, boxes, classes, num_detections):
@@ -64,6 +64,10 @@ class JetsonLiveObjectDetection():
 
             if cv2.waitKey(1) == ord('q'):
                 break
+
+            # throttle to rate
+            capture_duration = time.time() - curr_time
+            time.sleep(self.rate - capture_duration)
         
         cv2.destroyAllWindows()
         self.camera.__del__()
