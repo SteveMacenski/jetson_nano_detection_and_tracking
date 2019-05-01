@@ -1,23 +1,23 @@
 import numpy as np
 
-# TODO tune values and validate
+# TODO tune values
 
-class ConstantVelocityMotionModel():
+class ConstantVelocityMotionModel(object):
     def __init__(self, dt):
         self.dt = dt
-        self.A = np.array((1, 0, self.dt, 0), (0, 1, 0, self.dt), (0, 0, 1, 0), (0, 0, 0, 1))
-        self.H = np.array((1, 0, 0, 0), (0, 1, 0, 0))
-        self.I = np.array((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1))        
+        self.A = np.matrix(((1, 0, self.dt, 0), (0, 1, 0, self.dt), (0, 0, 1, 0), (0, 0, 0, 1)))
+        self.H = np.matrix(((1, 0, 0, 0), (0, 1, 0, 0)))
+        self.I = np.matrix(((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)))        
         return
 
 
 class KalmanFilter(ConstantVelocityMotionModel):
     def __init__(self, fps):
         dt = 1.0/fps
-        super(KalmonFilter, self).__init__(dt)
-        self.P = np.array((100, 0, 0, 0), (0, 100, 0, 0), (0, 0, 100, 0), (0, 0, 0, 100))
-        self.Q = np.array((100, 0, 0, 0), (0, 100, 0, 0), (0, 0, 100, 0), (0, 0, 0, 100))
-        self.R = np.array((100, 0), (0, 100))
+        super(KalmanFilter, self).__init__(dt)
+        self.P = np.matrix(((100, 0, 0, 0), (0, 100, 0, 0), (0, 0, 100, 0), (0, 0, 0, 100)))
+        self.Q = np.matrix(((100, 0, 0, 0), (0, 100, 0, 0), (0, 0, 100, 0), (0, 0, 0, 100)))
+        self.R = np.matrix(((100, 0), (0, 100)))
         return
 
     def initializeFilter(self, detection, missedUpdatesThresh = 5):
@@ -32,17 +32,17 @@ class KalmanFilter(ConstantVelocityMotionModel):
         self.missedUpdates = self.missedUpdates + 1
 
         self.state = self.A * self.state
-        self.P = self.A * self.P * self.A.T() + self.Q
-        return
+        self.P = self.A * self.P * self.A.T + self.Q
+        return self.state
 
     def correct(self, measurement):
         self.dirtyState = False
         self.missedUpdates = 0
         
-        K = self.P * self.H.T() * (self.H * self.P * self.H.T() + self.R).T()
+        K = self.P * self.H.T * np.linalg.pinv(self.H * self.P * self.H.T + self.R)
         self.state = self.state + K * (measurement - self.H * self.state)
-        self.P = (I - K * self.H) * self.P
-        return
+        self.P = (self.I - K * self.H) * self.P
+        return self.state
 
     def getState(self):
         return self.state
