@@ -1,8 +1,6 @@
 import numpy as np
 
 # TODO tune values
-# TODO add KF to project
-# TODO add constant rate (10hz)
 
 class ConstantVelocityMotionModel(object):
     def __init__(self, dt):
@@ -44,7 +42,7 @@ class KalmanFilter(ConstantVelocityMotionModel):
         K = self.P * self.H.T * np.linalg.pinv(self.H * self.P * self.H.T + self.R)
         self.state = self.state + K * (measurement - self.H * self.state)
         self.P = (self.I - K * self.H) * self.P
-        return
+        return self.state
 
     def getState(self):
         return self.state
