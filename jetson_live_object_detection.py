@@ -81,10 +81,10 @@ class JetsonLiveObjectDetection():
 
 if __name__ == "__main__":
     debug = True
+    model = 'ssd_mobilenet_v1_coco_trt_graph.pb'
     if len(sys.argv) > 2:
         debug = sys.argv[2]
         model = sys.argv[1]
-    model = 'ssd_mobilenet_v1_coco_trt_graph.pb'
     live_detection = JetsonLiveObjectDetection(model=model, debug=debug)
     live_detection.start()
     
