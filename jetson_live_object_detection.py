@@ -67,7 +67,9 @@ class JetsonLiveObjectDetection():
 
             # throttle to rate
             capture_duration = time.time() - curr_time
-            time.sleep(self.rate - capture_duration)
+            sleep_time = self.rate - capture_duration
+            if sleep_time > 0:
+                time.sleep(sleep_time)
         
         cv2.destroyAllWindows()
         self.camera.__del__()
