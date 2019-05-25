@@ -1,7 +1,7 @@
 import tensorflow.contrib.tensorrt as trt
 import sys
 import os
-from tf_trt_models.tf_trt_models.detection import download_detection_model, build_detection_graph
+from tf_trt_models.detection import download_detection_model, build_detection_graph
 
 # Options in model zoo: ssd_inception_v2_coco, ssd_mobilenet_v2_coco, ssd_mobilenet_v1_coco, ssdlite_mobilenet_v2_coco, ssd_mobilenet_v2_quantized_coco
 
